@@ -1,0 +1,16 @@
+// public - modifikator pristupu, trieda je verejne dostupna
+// class - trieda 
+// static - ku statickym metodam nepotrebujeme objekt, metoda je dostupna cez triedu
+// trieda s velkym pismenom!!! - datovy typ
+// private - dostupny len v ramci dannej triedy
+// new alokuj pamat pre novy objekt
+// Ahoj(); ---> konštruktor, ma vzdy rovnaky nazov ako je nazov triedy, nainicializuj
+// String, Integer, Float => null        :   int, float => 0
+
+public class Test{
+  
+  public static void main(String arg[]){
+  System.out.println("Ahoj cau");
+  
+  }
+}

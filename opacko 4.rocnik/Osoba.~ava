@@ -1,0 +1,313 @@
+//du osetrenie meno zacina velkym pismeno, ziadne cisla, vypocitat vek
+//osetrit nacitanie datumu narodenia - vypise sa prvy nespravny datum pri opatovnom nacitani, overit ci sa cislo sklada z 3 cisel oddelenych bodkami
+
+// |_B_M_I_| //
+
+import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.Period;
+
+public class Osoba{
+  private String meno;
+  private String priezvisko;
+  private char pohlavie;
+  private float vaha;
+  private float vyska;
+  private String datum_narodenia;
+  private int rok_narodenia;
+  private int mesiac_narodenia;
+  private int den_narodenia;
+  
+  public Osoba(){
+    
+    Scanner sc = new Scanner(System.in);
+    
+    System.out.println("Zadaj meno: ");
+    meno=sc.nextLine();
+    while(!overMenoAPriezvisko(meno)){
+      System.out.println("Meno musi zacinat velkym pismenom a nesmie obsahovat cislo, zadaj meno znovu: ");
+      meno=sc.nextLine();
+    }
+    
+    System.out.println("Zadaj priezvisko: ");
+    priezvisko=sc.nextLine();
+    while(!overMenoAPriezvisko(priezvisko)){
+      System.out.println("Priezvisko musi zacinat velkym pismenom a nesmie obsahovat cislo, zadaj priezvisko znovu: ");
+      priezvisko=sc.nextLine();
+    }    
+    
+    
+
+    nacitajPohlavie(sc);
+
+    sc.nextLine();
+    
+    System.out.println("Zadaj datum narodenia vo formate - (DD.MM.RRRR): ");
+    datum_narodenia=sc.nextLine();
+    while(!rozdelenie_a_overenieDatum_narodenia(datum_narodenia)){
+      System.out.println("Nespravny format alebo neexistujuci datum, zadaj datum narodenia vo formate - (DD.MM.RRRR) znovu: ");
+      datum_narodenia=sc.nextLine();  
+    }    
+    
+    System.out.println("Zadaj vysku - (v cm): ");
+    vyska=sc.nextFloat();
+    
+    System.out.println("Zadaj vahu - (v kg): ");
+    vaha=sc.nextFloat();
+    
+  }
+  
+  
+  
+  // getter
+  
+  public String getMeno(){
+    return meno;
+  }
+  
+  public String getPriezvisko(){
+    return priezvisko;
+  }
+  
+  public char getPohlavie(){
+    return pohlavie;
+  }
+  
+  public String getDatum_narodenia(){
+    return datum_narodenia;
+  }
+  
+  public float getVyska(){
+    return vyska;
+  }
+  
+  public float getVaha(){
+    return vaha;
+  }
+  
+  public int getRok_narodenia(){
+    return rok_narodenia;
+  }
+  
+  public int getMesiac_narodenia(){
+    return mesiac_narodenia;
+  }
+  
+  public int getDen_narodenia(){
+    return den_narodenia;
+  }
+  
+  
+  
+  // setter
+  
+  public void setMeno(String meno){
+    this.meno=meno;
+  }
+  
+  public void setPriezvisko(String priezvisko){
+    this.priezvisko=priezvisko;
+  }
+  
+  public void setPohlavie(char pohlavie){
+    this.pohlavie=pohlavie;
+  }
+  
+  public void setDatum_narodenia(String datum_narodenia){
+    this.datum_narodenia=datum_narodenia;
+  }
+  
+  public void setVyska(float vyska){
+    this.vyska=vyska;
+  }
+  
+  public void setVaha(float vaha){
+    this.vaha=vaha;
+  }
+  
+  public void setRok_narodenia(int rok_narodenia){
+    this.rok_narodenia=rok_narodenia;
+  }
+  
+  public void setMesiac_narodenia(int mesiac_narodenia){
+    this.mesiac_narodenia=mesiac_narodenia;
+  }
+  
+  public void setDen_narodenia(int den_narodenia){
+    this.den_narodenia=den_narodenia;
+  }
+  
+  
+  
+  // metody
+  
+  
+  public boolean over_pohlavie(char znak){
+    if(znak != 'M' && znak != 'm' && znak != 'Z' && znak != 'z'){
+      return false;
+    }else{
+      return true;
+    }
+  }
+  
+   public void nacitajPohlavie(Scanner sc) {
+        char znak;
+        do {
+            System.out.println("Zadaj pohlavie - M/Z: ");
+            znak = sc.next().charAt(0);
+            if (!over_pohlavie(znak)) {
+                System.out.println("Zle zadane pohlavie, zadaj pohlavie v platnej forme");
+            }
+        } while (!over_pohlavie(znak));
+        pohlavie = znak;
+    }
+
+
+  
+  public boolean rozdelenie_a_overenieDatum_narodenia(String datum){
+    String[] casti = datum_narodenia.split("\\."); //oddelenie pomocou bodky
+    //Kontroll poctu casti
+    if (casti.length == 3){
+      try{
+        den_narodenia = Integer.parseInt(casti[0]);
+        mesiac_narodenia = Integer.parseInt(casti[1]);
+        rok_narodenia = Integer.parseInt(casti[2]);
+        //Overenie mesiaca
+        if (mesiac_narodenia >= 1 && mesiac_narodenia <= 12){
+          //Overenie priestupneho roku
+          boolean priestupnyRok = (rok_narodenia % 4 == 0 && rok_narodenia % 100 != 0) || (rok_narodenia % 400 == 0);
+          if (mesiac_narodenia == 2){ //ked je februar
+            if (priestupnyRok && den_narodenia >= 1 && den_narodenia <= 29){ //ked je vo feb. priestupny rok
+              return true;
+            }
+            else if (den_narodenia >= 1 && den_narodenia <= 28){ //ked vo feb. nie je priestupny rok
+              return true;
+            }
+            else{
+              return false;
+            }
+          }
+          else if ((mesiac_narodenia == 4 || mesiac_narodenia == 6 || mesiac_narodenia == 9 || mesiac_narodenia == 11) && den_narodenia >= 1 && den_narodenia <= 30){ //podmienka pre mesiace s 30 dnami
+            return true;
+          }
+          else if (den_narodenia >= 1 && den_narodenia <= 31){ //podmienka pre ostatne mesiace co ostali
+            return true;
+          }
+          else{
+            return false;
+          }
+        }
+        else {
+          return false;
+        }
+      }
+      catch (NumberFormatException e){
+        //Chyba pri prevode na cislo, nespravny format
+      }
+    }
+    else {
+      return false;
+    }
+    return true;
+  }
+
+  
+  public int vypocetVeku(char interval){
+    int vekRok;
+    int vekMesiace;
+    int vekDni;
+    
+    LocalDate datumNarodenia = LocalDate.of(rok_narodenia, mesiac_narodenia, den_narodenia);
+  
+    LocalDate aktualnyDatum = LocalDate.now();
+  
+    Period age = Period.between(datumNarodenia, aktualnyDatum);
+  
+    vekRok = age.getYears();
+    vekMesiace = age.getMonths();
+    vekDni = age.getDays();
+    
+    int[] vek = new int[3];
+    vek[2] = vekRok;
+    vek[1] = vekMesiace;
+    vek[0] = vekDni;
+    
+    if(interval =='D'){
+      return vek[0];
+    }
+    else if(interval =='M'){
+      return vek[1];
+    }
+    else if(interval =='R'){
+      return vek[2];
+    }
+    else {
+      return -1;
+    }
+  }
+  
+  public boolean overMenoAPriezvisko(String text){
+    //Kontrola velkeho pismena na zaciatku
+    if(Character.isUpperCase(text.charAt(0))){
+      //Kontrola vyskytu cislic
+      for(char znak : text.toCharArray()){
+        if(Character.isDigit(znak)){
+          return false; //Vyskyt cisel
+        }
+      }
+      return true; //Text je OK
+    }
+    else{
+      return false; //Text nema velke pismeno na zaciatku
+    }
+}
+  
+  
+  
+  
+  public float vypocetBMI(float vaha, float vyska){
+    return (vaha/((float)Math.pow((vyska/100), 2)));
+  }
+  
+  public String slovneBMI(){
+    float bmi = vypocetBMI(vaha, vyska);
+    if(bmi < 18.5){
+      return "podvaha";
+    }
+    else if(bmi >= 18.5 && bmi <= 24.99){
+      return "optimalna vaha";
+    }
+    else if(bmi >= 25 && bmi <= 29.99){
+      return "nadvaha";
+    }
+    else if(bmi >= 30 && bmi <= 34.99){
+      return "obezita 1. stupna";
+    }
+    else if(bmi >= 35 && bmi <= 39.99){
+      return "obezita 2. stupna";
+    }
+    else{
+      return "obezita 3. stupna";
+    }
+  }
+  
+  public String toString(){  
+    return 
+    "\n meno: " + getMeno() + 
+    "\n priezvisko: " + getPriezvisko() +
+    "\n pohlavie: " + getPohlavie() +
+    "\n datum narodenia: " + getDatum_narodenia() + 
+    "\n vyska: " + getVyska() + "cm" +  
+    "\n vaha: " + getVaha() + "kg" + 
+    //"\n vek: " + vypocetVeku('r') + " rokov " + vypocetVeku('m') + " mesiacov " + vypocetVeku('d') + " dni" +
+    "\n " + super.toString();
+  }
+  
+  public void info(){ 
+    System.out.println(toString()); 
+    System.out.print(" vek: " + vypocetVeku('R') + " rokov " + vypocetVeku('M') + " mesiacov " + vypocetVeku('D') + " dni");   
+    System.out.print("\n BMI index: " + vypocetBMI(vaha, vyska));
+    System.out.print("\n stav: " + slovneBMI());    
+  } 
+  
+}

@@ -1,0 +1,174 @@
+Java
+-objektovo orientovany jazyk, ktory modeluje objekt realneho sveta
+-pouziva sa na programovanie(dynamicke) desktop app, php, mobilne app, programovanie TV
+-kompilovany aj interpretovany jazyk
+-po kompilacii zdrojoveho kodu java programu vznikne bytecode, ktory je prenosny ale na spustenie potrebujeme interpreter
+-platformovo nezavysly, bytecode je prenosny a spustitelny na roznych platformach -> podmienkou je nainstalovany JVM (java machine)
+-kompilovany aj interpretovany jazyk
+
+Postup vytvorenia programu:
+●vytvorenie/editacia zdrojoveho kodu => *.java			pouzivame bud java prostredie alebo vytvorime subor *.txt cez textovy editor
+●kompilacia pomocou prekladaca/kompilatora => javac *.java
+●po uspesnej kompilacii sa vytvoril bytecode => *.class
+●sputame cez cmd => java nazov_bytecode				spustitelny je iba bytecode; podmienkou je nainstalovany JVM
+
+modifikatory pristupu
+>	.public - verejnedostupna; hoci kto moze zmenit vlastnosti objektu
+>	.frendly - -||-
+>	.protected- -||-
+>	.private
+
+klucovae slovo na vytvorenie tiredy - class	potom nasleduje nazov triedy
+
+Trieda(class) je programator zadefinovany zlozeny datovy typ, ktory zapuzdruje datove polozky a metody;
+Datove polozky popisuju vlastnosti objektu -> popisuju vlastnosti realneho objektu
+Metody urcuju alebo definuju sposob komunikacie s objektom alebo medzi sebou(medzi objektami) -> urcuju sposob komunikacie s objektom alebo s objektami
+
+this odkazuje datovu polozku, aktuálny objekt v metóde alebo konštruktore (urcuje ze sa jedna o datovu polozku stranaA)
+
+Obdlznik obdA = new Obdlznik();
+datovy_typ_Trieda nazov_objektu = operator_alokacie_pamate implicitny_konstrukter
+new alokuje/vyhradi pamat
+
+import java.util.Scanner;
+importovanie nastroja na pracu s vstupom
+
+java.lang.System;
+balicek Lang je automaticky imortovany;		preto ho nemusime importovat, ale nie je to chyba
+
+
+konstruktor
+-> specialna metoda, sluzi na inicializaciu datovy poloziek
+-> moze byt inplicitny alebo explicitny
+	-> inplicitny je preddefinovany, vykonava sa vzdy, aj v ramci explicitne definovanom konstruktory - ciselne datove polozky nastavi na nulovu hodnotu a datove na null
+  	-> explicitny je definovany programatorom, nazov je zhodny s nazvom triedy
+-> pre kazdy konstruktor sa najprv vykona inplicitny konstruktor a az potom explicitny
+-> pretazeny konstruktor - ked je viac konstruktorov s rovnakym nazvom ale s roznym poctom parametrov a typom preberanych parametrov - program zhodnoti podla poctu zadanych parametrov/hodnot, ktory kenstruktor sa hodi pouzit najviac
+
+
+OBJEKT
+-premanna typu Trieda
+-Trieda objekt = new Trieda();
+-sluzi na  pracu s datovymi polozkami a metodami v triede
+Obdlznik obdA = new Obdlznik();
+nazov_triedy_s_ktorou_chcme_pravcovat nazov_objektu = operator_alokacie_pamate implicitny_konstruktor
+
+Operator plus '+'
+-pretazeny operator sa nazyva operator zretazenia -> operator plus je pretazeny operator - pretoze sa
+ pouziva na matematicke operacie ale aj na zretazenie
+
+Zretazenie automaticky pretipuje ciselne hodnoty na string ak je to potrebne (napr. 3+"2"+new)
+
+static - umoznuje nam pracovat s danou triedou aj bez toho aby sme museli vytvarat objekt
+
+importovanie balicka na pracu s matematickymi metodami z balicka(mocnina, odmocnina,...)            
+import java.lang.Math;
+Math.sqrt() -> druha odmocnina - prebera jeden parametrer(cislo ktore odmocnujem)
+Math.pow() -> mocnina - prebera dva parametre(cislo kotre chcem umocnit a exponent(cislo na ktore chcem umocnit))
+
+
+METODA STATIC VS NON STATIC
+Metoda static:
+-je dostupna cez triedu
+-nepotrebujeme vytvorit objekt na pristup k metodam
+-vie pristupovat len k statickym datovym polozka
+-napr. 	Math: Math.sqrt(staranA)
+	System: System.out.println()
+
+Metoda non static = instalacna:
+-je dostupna cez objekt
+-je potrebne vytvorit objekt na pristup k metodam
+-napr.	Scanner:
+			import java.util.Scanner;
+			Scanner sc = new Scanner(System.in)
+			stranaA = sc.nextFloat()
+
+
+DEDICNOST
+-trieda Objekt je rodicovska trieda a kazda trieda, ktoru vytvorime je potomok rodicovskej triedy
+
+-trieda Objekt(rodicovska)	<- Moja_Trieda(dcerska)	<- Moja_Trieda1
+							<- Moja_Trieda2	<-B
+				<- A
+
+-prikazy na definiciu(sluzi na rozsirenie triedy Obdlznik):
+	class Moja_Trieda1 extends Moja_Trieda{}
+	class Moja_Trieda2 extends Moja_Trieda{}
+	class B extends MT2{}
+	class potomok extends rodic
+	
+/*class A{}
+class Obdlznik{}
+class Moja_Trieda{}*/
+
+-dcerske triedy rozsiruju vlastnosti rodica
+-dcerske tiredy(potomkovia) zdedia od rodicov(vsetkych vyssich tried) vsetky triedy ktore su typu public alebo protected
+
+
+import java.lang.Math; nemusim pouzit, je automaticky importovany
+
+
+toString
+-metodou toString preddefinujeme
+-vo forme znakoveho ratazca vrati vsetky hodnoty vsetkych datovych poloziek
+-volanie metody z rodicovskej tiredy
+-k metodam ktore sme preddefinovali v rodicovskej tirede, pristupujeme pomocou 'super' -> vrati povodnu metodu
+
+
+KONSTANTY
+-final pouzivam na definiciu konstanty; konstantu zapisujem VELKYMI PISMENAMI
+-datovy typ vyberam podla poctu desatinnych miest
+-napr.:
+	public static final double PI;
+	public static final float PI = 3.14F;
+
+
+TECHNIKA VKLADANIA
+-"MA"?
+-kvader -> rozlozime na 3 rozne obdlzniky (prednaStrana:a*v; bocnaStrana:b*v; podstava:a*b - kazdy obdlznik potrebujeme 2-krat)
+-zadefinovanu triedu pouzivame ako datovy typ datovych poloziek
+
+-pomocou slovicka 'extends' napr. public class Student extends Osoba -> trieda Student prebera data z triedy Osoba
+
+
+METODY(budu na pisomke)
+add, clear, get, remove, size, set
+https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html#add-E-
+
+
+ROZHRANIE INTERFACE
+-Interface	-> specialna trieda ktora definuje sposob komunikacie s inymi triedami 
+		-> obsahuje definiciu konstanty, deklaraciu metody (od verzie 8 aj definicie statickych metod)
+		-> definicia pomocou "interface" namiesto "class" ("public interface nazov{}" a nie "public class nazov{}")
+		-> TriedaPotomok extends TriedaRodic implements interfaceA, interfaceB, ... (lubovolny pocet interface-ov)
+		-> v triede interface nevieme definovat objekty
+		-> trieda ktora obsahuje "interface" musi obsahovat vsetky metody ktore su zadefinovane v "interface"
+			-> ak v triede obsahujucej "interface" nepouzijem vsetky jej metody nastane chyba - musim zadefinovat aspon prazdnu/bezparametrovu metodu 
+-deklaraciu metod obsahuje interface ale definiciu metod obsahuju triedy ktore maju zadefinovany/pouzity interface
+-implements -> aplikovanie sposobu komunikacie/rozsirenie o dany komunikacny kanal
+
+
+BEHOVA CHYBA
+-odhali sa iba pocas behu(nevypisuje error -> kompilacia prebehne uspesne)
+-tazka na odhalenie(jedna z najtazsich)
+-nevyskytuje sa pri kazdom spusteni
+-ak pouzijem genericky datovy typ - DIAMANTOVY OPERATOR "<>" (deinuje aky datovy typy bude v danom poli) - odhalim tuto chybu uz pri kompilacii
+
+
+!!!vsetko co vlozim do ArrayList-u sa stane datovym typom class Objekt - hlavna classa ktora je rodicovskym objektom kazdej triedy ktoru zadefinujem!!!
+!!!definicia metody je aj prazdna metoda!!!
+
+
+GRAFICKE PROSTREDIE
+-AWT nie je platformovo nezavisle
+-SWING neodlisuje aplikacnu cast od programatorskej -> menej vykonny
+-JAVAFX (toto vyuzivame)
+
+
+ABSTRAKTNA TRIEDA
+-ak dedime z abstraktnej tiredy tak musime vsetky abstraktne triedy preddefinovat
+-vsetky aplikacie ktore budeme vytvarat budu obsahovat triedu "abstract void start" lebo aplikacia je typu abstract
+-musime importovat "javafx.application.Application" pre aplikaciu
+-vsetko sa odohrava na stage(podiu) a tak musime importovat aj "javafx.stage.Stage"
+-musime importovat aj scenu "javafx.scene.Scene"
+-o rozmiestenie objektov na okne sa stara manazer -> manazera musime tiez importovat(existuje vela manazerov napr. "javafx.scene.layout.VBox"

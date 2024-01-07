@@ -1,0 +1,79 @@
+﻿[Files]
+File0=F:\JAVA\Dedenie & vkladanie = skola + dynamicke pole\InfoSkola.java
+File1=F:\JAVA\Dedenie & vkladanie = skola + dynamicke pole\Osoba.java
+File2=F:\JAVA\Dedenie & vkladanie = skola + dynamicke pole\Skola.java
+File3=F:\JAVA\Dedenie & vkladanie = skola + dynamicke pole\Student.java
+File4=F:\JAVA\Dedenie & vkladanie = skola + dynamicke pole\Zamestnanec.java
+
+[Box:  - InfoSkola]
+X=1471
+Y=25
+MinVis=0
+ShowParameter=4
+SortOrder=0
+ShowIcons=1
+FontSize=12
+FontName=Segoe UI
+
+[Box:  - Osoba]
+X=271
+Y=40
+MinVis=0
+ShowParameter=4
+SortOrder=0
+ShowIcons=1
+FontSize=12
+FontName=Segoe UI
+
+[Box:  - Skola]
+X=1073
+Y=7
+MinVis=0
+ShowParameter=4
+SortOrder=0
+ShowIcons=1
+FontSize=12
+FontName=Segoe UI
+
+[Box:  - Student]
+X=1009
+Y=546
+MinVis=0
+ShowParameter=4
+SortOrder=0
+ShowIcons=1
+FontSize=12
+FontName=Segoe UI
+
+[Box:  - Zamestnanec]
+X=23
+Y=566
+MinVis=0
+ShowParameter=4
+SortOrder=0
+ShowIcons=1
+FontSize=12
+FontName=Segoe UI
+
+[Diagram]
+comments=0
+OffsetX=0
+OffsetY=0
+Visibility=0
+ShowParameter=4
+SortOrder=0
+ShowIcons=1
+ShowConnections=0
+Fontname=Segoe UI
+Fontsize=12
+ShowObjectDiagram=0
+
+[Connections]
+V0=Skola#Student#AssociationDirected####0#0#0###0#0
+V1=Skola#Zamestnanec#AssociationDirected####0#0#0###0#0
+V2=Student#Osoba#Inheritends####0#0#0###0#0
+V3=Zamestnanec#Osoba#Inheritends####0#0#0###0#0
+
+[Interactive]
+I0=
+

@@ -1,0 +1,123 @@
+import java.util.Scanner;
+import java.lang.Math;
+
+class Kvader{
+  
+  private Obdlznik podstava;   //kazdy datovy typ bude mat kazdu stranu a metody triedy obdlznik
+  private Obdlznik bocnaStena;
+  private Obdlznik prednaStena;
+  
+  
+  
+  public Kvader(float stranaA, float stranaB, float stranaC){
+    
+    podstava = new Obdlznik( stranaA, stranaB);
+    //bocnaStena = new Obdlznik( stranaB, stranaC);
+    bocnaStena = new Obdlznik( podstava.getStranaB(), prednaStena.getStranaB());  //getStranaB lebo su druhe v poradi takisto ako pri konstruktore v triede Obdlznik 
+    //prednaStena = new Obdlznik( stranaA, stranaC);
+    prednaStena = new Obdlznik( podstava.getStranaA(), stranaC);
+    
+      
+    
+  }
+  
+  
+ //---------Konstruktory----------
+ 
+  public Kvader(){
+    
+    System.out.println("----ZADAJ HODNOTY PRE KVADER---");
+    Scanner sc = new Scanner(System.in);
+    
+    podstava = new Obdlznik( OverRozmer.overRozmer(sc, 'a'),  OverRozmer.overRozmer(sc, 'b'));
+    prednaStena = new Obdlznik( podstava.getStranaA(), OverRozmer.overRozmer(sc, 'c'));
+    bocnaStena = new Obdlznik( podstava.getStranaB(), prednaStena.getStranaB());
+    
+    
+  }
+  
+  
+  public Kvader(float stranaA){
+    
+    this(stranaA,stranaA,stranaA);
+    
+  }
+  
+  
+  
+  //---------Vypoctove metody------------
+  
+  public float objemKvadra(){
+    
+    return podstava.getStranaA()*podstava.getStranaB()*prednaStena.getStranaB();
+    
+  }
+  
+  
+  //Pretazena metoda objem
+  public float objemKvadra(float obsah, float vyska){
+  
+    return obsah * vyska;
+    
+  }
+  
+    //Pretazena metoda objem c.2
+  public float objemKvadra(float vyska){
+    
+    return podstava.obsahObdznika() * vyska;
+  }
+
+  
+  public float obsahKvadra(){
+    
+    return 2*(podstava.getStranaA()*podstava.getStranaB()+ podstava.getStranaA()*prednaStena.getStranaB() + podstava.getStranaB()*prednaStena.getStranaB());
+  }
+
+
+  public float plastKvadra(){
+    
+    return 2*(podstava.obsahObdznika()+ bocnaStena.obsahObdznika() + prednaStena.obsahObdznika());
+  }
+  
+  public float telesovaUhloprieckaKvadra(){
+    
+    return (float)Math.sqrt( Math.pow(podstava.getStranaA(),2) + Math.pow(podstava.getStranaB(),2) + Math.pow(prednaStena.getStranaB(),2));
+  }
+  
+  
+  
+  public String toString(){
+    
+    return podstava.getStranaA()+" "+ podstava.getStranaB()+" "+ prednaStena.getStranaB() + " "+ super.toString();
+  }
+
+
+
+
+  public void info(){
+    
+    System.out.println("------KVADER-----");
+    System.out.println("strana a = " + podstava.getStranaA());
+    System.out.println("strana b = " + podstava.getStranaB());
+    System.out.println("strana c = " + prednaStena.getStranaB());
+    System.out.println("Obsah = "+ obsahKvadra());
+    System.out.println("Objem = "+ objemKvadra(podstava.obsahObdznika(),prednaStena.getStranaB()));
+    System.out.println("Objem = "+ objemKvadra(prednaStena.getStranaB()));
+    System.out.println("Objem = "+ objemKvadra());
+    System.out.println("Plast kvadra = "+ plastKvadra());
+    System.out.println("Telesova uhlopriecka = "+ telesovaUhloprieckaKvadra());
+    System.out.println("Uhlopriecka podstavy =" + podstava.uhloprieckaObdznika());
+    System.out.println("Uhlopriecka prednej steny =" + prednaStena.uhloprieckaObdznika());
+    System.out.println("Uhlopriecka bocnej steny =" + bocnaStena.uhloprieckaObdznika());
+    System.out.println(toString());
+    
+    }
+
+    
+    
+  
+  
+
+
+  
+}
